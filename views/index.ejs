@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>TaskManager</title>
+        <link href='https://bootswatch.com/4/flatly/bootstrap.min.css' rel='stylesheet'>
         <style>
             .del:checked + span{
 
@@ -11,49 +12,72 @@
         </style>
 </head>
 <body>
-<form method="post" action='/task/add'>
-    <label>Add a Task </label>
-    <input type="text" name="task" placeholder= 'what are you up to?'>
-    <input type="submit" value="Add">
-</form>
+    <nav class="navbar navbar-inverse ">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">TaskManager</a>
+          </div>
+          <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+  
+    <div class="container">
+    <form method="post" action='/task/add'>
+        <label>Add a Task </label>
+        <input type="text" name="task" placeholder= 'what are you up to?'>
+        <input type="submit" value="Add">
+    </form>
 
-<%= title %>
+   <h3> <%= title %> </h3>
 
-<form method='post' action='/task/delete'>
-<ul class="task-list">
-<% tasks.forEach(function(task){ %>
-    <li>
-        <label>
-            <input type='checkbox' name="tasks" class="del" value="<%=task
-            %>"><span><%= task %></span>
-        </label>
-        </li>
-<% }) %>
-</ul>
-<input type="submit" value="Remove">
-</form>
+    <form method='post' action='/task/delete'>
+    <ul class="task-list">
+    <% tasks.forEach(function(task){ %>
+        <li>
+            <label>
+                <input type='checkbox' name="tasks" class="del" value="<%=task
+                %>"><span><%= task %></span>
+            </label>
+            </li>
+    <% }) %>
+    </ul>
+    <input type="submit" value="Remove">
+    </form>
+    <div class="well">
+        <h3> Next appointment </h3>
+        Name: <%= call.name %><br>
+        Company: <%= call.company %><br>
+        Phone: <%= call.phone %><br>
+        Time: <%= call.time %>
+    </div>        
 
-<h3> Next Business Call</h3>
-Name: <%= call.name %><br>
-Company: <%= call.company %><br>
-Phone: <%= call.phone %><br>
-Time: <%= call.time %>
-
-<h3>Edit Next call</h3>
-<form method="post" action="/call/add">
-            <label>Contact Name</label><br>
-			<input type="text" name="name" placeholder="Task Name">
-			<br><br>
-			<label>Company</label><br>
-			<input type="text" name="company" placeholder="Company">
-			<br><br>
-			<label>Phone</label><br>
-			<input type="text" name="phone" placeholder="Phone">
-			<br><br>
-			<label>Day & Time</label><br>
-			<input type="text" name="time" placeholder="Time">
-			<br><br>
-			<input type="submit" value="Submit">
-</form>
+    <div class="well">
+    <h3>Add Information About Next Appointment</h3>
+    <form method="post" action="/call/add">
+                <label>Contact Name</label><br>
+                <input type="text" name="name" placeholder="Task Name">
+                <br><br>
+                <label>Location</label><br>
+                <input type="text" name="company" placeholder="location">
+                <br><br>
+                <label>Phone</label><br>
+                <input type="text" name="phone" placeholder="Phone">
+                <br><br>
+                <label>Day & Time</label><br>
+                <input type="text" name="time" placeholder="Time">
+                <br><br>
+                <input type="submit" value="Submit">
+    </form>
+ </div>
+</div>
 </body>
 </html>
