@@ -9,10 +9,11 @@
   "author": "kolade",
   "license": "ISC",
   "dependencies": {
-    "express":"*",
     "body-parser": "*",
+    "bootstrap": "^4.4.1",
     "ejs": "^2.4.2",
-    "morgan":"*",
-    "redis":"*"
+    "express": "*",
+    "morgan": "*",
+    "redis": "*"
   }
 }
