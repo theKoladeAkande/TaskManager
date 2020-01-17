@@ -82,11 +82,11 @@ app.post('/call/add', function(request, response){
     var newCall = {};
 
     newCall.name = request.body.name;
-    newCall.company = request.body.company;
+    newCall.location = request.body.location;
     newCall.phone = request.body.phone;
     newCall.time = request.body.time;
 
-    client.hmset('call', ['name', newCall.name,'company',newCall.company,'phone', newCall.phone, 'time', newCall.time], function(err,reply){
+    client.hmset('call', ['name', newCall.name,'location',newCall.location,'phone', newCall.phone, 'time', newCall.time], function(err,reply){
            if(err){
                console.log(err);
            }  //if  
