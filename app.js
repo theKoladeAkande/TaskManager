@@ -25,11 +25,16 @@ app.get('/', function(request, response){
     var title = 'Task List';
 
     client.lrange('tasks',0, -1, function(err, reply){
-        response.render('index',{
-            title: title,
-            tasks: reply 
+        client.hgetall('call', function(err,call){
+            response.render('index',{
+                title: title,
+                tasks: reply,
+                call: call
+    
+       });// response.render 
 
-   });// response.render 
+        });//client.hgetall
+        
     });//client.lrange 
 
     
@@ -49,6 +54,54 @@ app.post('/task/add', function(request,response){
 
     });//client.rpush
 });//app.post
+
+app.post('/task/delete', function(request, response){
+    var delTask = request.body.tasks;
+
+    client.lrange('tasks', 0, -1, function(err,tasks){
+        for(var i = 0; i< tasks.length;i++){
+            if(delTask.indexOf(tasks[i]) >- 1){
+                client.lrem('tasks', 0, tasks[i], function(){
+                    if(err){
+                        console.log(err);
+                    }
+                });
+
+            }//if-statement
+
+        }// for loop
+        response.redirect('/');
+    });// client.lrange
+
+});//app.post
+
+
+
+
+app.post('/call/add', function(request, response){
+    var newCall = {};
+
+    newCall.name = request.body.name;
+    newCall.company = request.body.company;
+    newCall.phone = request.body.phone;
+    newCall.time = request.body.time;
+
+    client.hmset('call', ['name', newCall.name,'company',newCall.company,'phone', newCall.phone, 'time', newCall.time], function(err,reply){
+           if(err){
+               console.log(err);
+           }  //if  
+           console.log(reply);
+           response.redirect('/');  
+
+
+    });//client.hmset
+
+});//app.post
+
+
+
+
+
 
 // start server
 app.listen(3000);
